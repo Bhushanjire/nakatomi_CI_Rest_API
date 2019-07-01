@@ -88,7 +88,7 @@ class User extends REST_Controller {
                 $data =  $this->user_model->Msignup($data);
         if($data){
             $this->success = true;
-            $this->responceData='';
+            $this->responceData=$data;
             $this->message = 'Signup successfully';
         }else{
             $this->success = false;
@@ -147,13 +147,13 @@ $this->load->library('upload', $config);
 if ( ! $this->upload->do_upload('profile_photo'))
                 {
                         $error = array('error' => $this->upload->display_errors());
-                       // print_r($error);
+                        print_r($error);
                 }
                 else
                 {
                         $data1 = array('upload_data' => $this->upload->data());
                         $file_ext = $data1['upload_data']['file_ext'];
-                        $data['profile_photo'] = $file_name.$file_ext;
+                        $data['profile_photo'] = base_url()."assets/images/".$file_name.$file_ext;
                       
                        
                 }
@@ -163,7 +163,9 @@ if($this->post('user_id')>0){
 $data['name'] = $this->post('name');
 $data['birth_date'] = $this->post('birth_date');
 $data['gender'] = $this->post('gender');
+$data['theme_color_code']= $this->post('theme_color_code');
 
+//print_r($data);
 $this->user_model->Mprofile($data,$user_id);
 
 $this->success = true;
