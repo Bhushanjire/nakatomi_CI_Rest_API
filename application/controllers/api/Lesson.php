@@ -57,15 +57,15 @@ if($data){
             $lesson_id= $this->post('lesson_id') ?? 0;
         if($data){            
             $this->success = true;
-            $this->responceData='';
                 //update the user count
                 if($lesson_status=='in'){
-                    $this->lesson_model->MupdateUserCount($lesson_status,$lesson_id);
+                    $resData['user_count'] = $this->lesson_model->MupdateUserCount($lesson_status,$lesson_id);
                     $this->message = 'Lesson in successfully';
                 }else if($lesson_status=='out'){
-                    $this->lesson_model->MupdateUserCount($lesson_status,$lesson_id);     
+                    $resData['user_count'] = $this->lesson_model->MupdateUserCount($lesson_status,$lesson_id);     
                     $this->message = 'Lesson out successfully';
                 }
+                $this->responceData=$resData;
                
         }else{
             $this->success = false;

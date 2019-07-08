@@ -834,6 +834,7 @@ abstract class REST_Controller extends CI_Controller {
             	// If the format method exists, call and return the output in that format
             	if (method_exists(Format::class, 'to_' . $this->response->format))
             	{
+                   
                 	// Set the format header
                 	$this->output->set_content_type($this->_supported_formats[$this->response->format], strtolower($this->config->item('charset')));
                 	$output = Format::factory($data)->{'to_' . $this->response->format}();
@@ -842,6 +843,7 @@ abstract class REST_Controller extends CI_Controller {
                 	// Json is the most appropriate form for such a data type
                 	if ($this->response->format === 'array')
                 	{
+                       
                     	$output = Format::factory($output)->{'to_json'}();
                 	}
             	}

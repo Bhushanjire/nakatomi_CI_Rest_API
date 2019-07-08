@@ -3,8 +3,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class User_model extends CI_Model {
     public function checkLogin($username,$password){
-        $this->db->select('user_id,name,birth_date,theme_color_code,quick_block_id,profile_photo,token');
-        $data = $this->db->get_where("users", ['username' => $username,'password'=>md5($password)])->row_array();
+        $this->db->select('user_id,name,username,birth_date,theme_color_code,quick_blox_id,profile_photo,user_type,token');
+        $data = $this->db->get_where("users", ['username' => $username,'password'=>md5($password)])->result_array();
         return $data;
     }
 
@@ -12,6 +12,12 @@ class User_model extends CI_Model {
         $this->db->select('user_id');
         $checkEmail = $this->db->get_where("users", ['email' => $email])->row_array();
         return $checkEmail;
+    }
+
+    public function checkUserName($username){
+        $this->db->select('username');
+        $checkUsername = $this->db->get_where("users", ['username' => $username])->row_array();
+        return $checkUsername;
     }
 
     public function Msignup($data){
@@ -26,8 +32,9 @@ class User_model extends CI_Model {
 
         if($this->db->insert('users',$data)){
             $insert_id = $this->db->insert_id(); //last inserted id
-            $this->db->select('user_id,name,birth_date,theme_color_code,quick_block_id,profile_photo,token');
-           return $this->db->get_where("users", ['user_id' => $insert_id])->row_array();
+            $this->db->select('user_id,name,username,birth_date,theme_color_code,quick_blox_id,profile_photo,user_type,token');
+           $returnData =  $this->db->get_where("users", ['user_id' => $insert_id])->row_array();
+           return $returnData;
         }
     }
 
