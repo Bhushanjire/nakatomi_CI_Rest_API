@@ -1,6 +1,7 @@
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
 use Restserver\Libraries\REST_Controller;
+defined('BASEPATH') OR exit('No direct script access allowed');
+
 
 require APPPATH . 'libraries/REST_Controller.php';
 require APPPATH . 'libraries/Format.php';
@@ -8,7 +9,7 @@ require APPPATH . 'libraries/Format.php';
 
 //use \Firebase\JWT\JWT;
 
-class User extends REST_Controller {
+class User2 extends REST_Controller {
 
     public $userData =array() ;
     public $success;
@@ -22,6 +23,7 @@ class User extends REST_Controller {
     {
         // Construct the parent class
         parent::__construct();
+
         // Configure limits on our controller methods
         // Ensure you have created the 'limits' table and enabled 'limits' within application/config/rest.php
         //$this->methods['profile_post']['limit'] = 500; // 500 requests per hour per user/key
@@ -30,18 +32,16 @@ class User extends REST_Controller {
         //$this->methods['usersList_get']['limit'] = 500; // 50 requests per hour per user/key
         //$this->post=$_REQUEST;
         $this->load->model('user_model');
-
-        header('Access-Control-Allow-Origin: *');
-        header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept, Access-Control-Request-Method");
-        header("Access-Control-Allow-Methods: GET, POST, OPTIONS, PUT, DELETE");
-        $this->output->set_content_type('application/json');
+       
+       
     }
 
 
     public function login_post()
 	{
+      
+		header('Content-Type: application/json');
 
-       // $this->output->set_content_type('application/json');
        // $this->postdata = file_get_contents("php://input");
         //$this->request = json_decode($this->postdata);
         //$username = $this->input->post('username');
@@ -82,6 +82,7 @@ class User extends REST_Controller {
             $data['id_token'] = $jwt = JWT::encode($token, $key);
             */
             if(!(empty($data))){
+                
                 $this->success = true;
                 $this->responceData=$data;
                 $this->message = 'Login successfully';
@@ -97,15 +98,25 @@ class User extends REST_Controller {
             $this->message = 'Invalid data';
         }
         
-        // $this->userData['success']=$this->success;
-        // $this->userData['data']=$this->responceData;
-        // $this->userData['message']=$this->message;
-
         // $this->userData = [
         //     'success' => $this->success,
         //     'data' => $this->responceData,
         //     'message' => $this->message
         // ];
+
+        // $this->userData['success']=$this->success;
+        // $this->userData['data']=$this->responceData;
+        // $this->userData['message']=$this->message;
+
+        $this->userData = [
+            'success' => $this->success,
+            'data' => $this->responceData,
+            'message' => $this->message
+        ];
+
+        
+        
+    
 
        // $responce=array('success'=>$this->success,'data'=>$this->responceData,'message'=>$this->message);
         //print_r($this->userData);
@@ -117,13 +128,11 @@ class User extends REST_Controller {
             'message'=>$this->message
         ], REST_Controller::HTTP_OK);
 
-    
-       // $this->response($responce, REST_Controller::HTTP_OK);
+        $this->response($responce, REST_Controller::HTTP_OK);
     }
 
     public function signup_post()
     {
-        
         $data = $this->post(); 
 
         if(!empty($data)){

@@ -878,12 +878,14 @@ abstract class REST_Controller extends CI_Controller {
 
         	if ($continue === FALSE)
         	{
+               
             	// Display the data and exit execution
             	$this->output->_display();
             	exit;
         	}
         	else
         	{
+               
             	ob_end_flush();
         	}
 

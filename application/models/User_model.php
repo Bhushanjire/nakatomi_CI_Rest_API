@@ -4,7 +4,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class User_model extends CI_Model {
     public function checkLogin($username,$password){
         $this->db->select('user_id,name,username,birth_date,theme_color_code,quick_blox_id,profile_photo,user_type,token');
-        $data = $this->db->get_where("users", ['username' => $username,'password'=>md5($password)])->result_array();
+        $data = $this->db->get_where("users", ['username' => $username,'password'=>md5($password)])->row_array();
+        //$data = $this->db->get_where("users", ['username' => $username,'password'=>md5($password)])->row();
         return $data;
     }
 

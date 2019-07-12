@@ -121,6 +121,7 @@ class Format {
         // $class = __CLASS__;
         // return new $class();
 
+
         return new static($data, $from_type);
     }
 
@@ -396,6 +397,7 @@ class Format {
      */
     public function to_json($data = NULL)
     {
+        
         // If no data is passed as a parameter, then use the data passed
         // via the constructor
         if ($data === NULL && func_num_args() === 0)
@@ -408,7 +410,12 @@ class Format {
 
         if (empty($callback) === TRUE)
         {
-            return json_encode($data, JSON_UNESCAPED_UNICODE);
+            
+             //echo "type=".JSON_UNESCAPED_UNICODE;
+            // echo "data";
+            // print_r($data);
+            //return json_encode($data);
+            return json_encode($data,JSON_UNESCAPED_UNICODE);
         }
 
         // We only honour a jsonp callback which are valid javascript identifiers

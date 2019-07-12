@@ -239,6 +239,7 @@ class CI_Output {
 	 */
 	public function set_content_type($mime_type, $charset = NULL)
 	{
+		//echo "mime=".$mime_type;
 		if (strpos($mime_type, '/') === FALSE)
 		{
 			$extension = ltrim($mime_type, '.');
@@ -278,6 +279,7 @@ class CI_Output {
 	 */
 	public function get_content_type()
 	{
+	
 		for ($i = 0, $c = count($this->headers); $i < $c; $i++)
 		{
 			if (sscanf($this->headers[$i][0], 'Content-Type: %[^;]', $content_type) === 1)

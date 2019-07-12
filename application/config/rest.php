@@ -31,6 +31,7 @@ $config['force_https'] = FALSE;
 */
 $config['rest_default_format'] = 'json';
 
+
 /*
 |--------------------------------------------------------------------------
 | REST Supported Output Formats

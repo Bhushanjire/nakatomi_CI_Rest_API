@@ -30,7 +30,7 @@
     //     $temp['token']=$data['token'];
     //     array_push($responce, $temp);
     // }
-    $res1 =array('success'=>true,'data'=>$data,'message'=>'Login Successfully');
+    $res1 =array('succes'=>true,'data'=>$data,'message'=>'Login Successfully');
     
 }else{
     $res1 =array('succes'=>false,'data'=>'','message'=>'Invalid username/password');
